@@ -1,0 +1,37 @@
+.tabela{
+    display: flex;
+    
+    
+    justify-content: center;
+}
+
+table{
+    border: 15px solid black;
+    
+    border-spacing: 0;
+    
+    
+}
+
+
+
+td{
+    border: solid 1px black;
+    width: 100px;
+    height: 100px;
+    border-spacing: 0px;
+    
+}
+
+tr:nth-child(odd) td:nth-child(even){
+    background-color: black;
+}
+
+tr:nth-child(even) td:nth-child(odd){
+    background-color: black;
+}
+
+img{
+    width: 100px;
+    height: 100px;
+}
