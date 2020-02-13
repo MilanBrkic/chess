@@ -78,11 +78,22 @@ function setPieces(){
     for(i =0;i<8;i++){
         arr.push(pawn_black[i],pawn_white[i]);
     }
+    
+    pieceListener(arr);
 
     for(i = 0;i<arr.length;i++){
         let element = arr[i];
-        matrix[element.current.y][element.current.x].innerHTML = element.img;
+        matrix[element.current.y][element.current.x].appendChild(element.img);
     }
 }
 
-
+function pieceListener(arr){
+    for(let i = 0;i<arr.length;i++){
+        arr[i].img.style.cursor="pointer";
+        arr[i].img.addEventListener("click", function(){
+            console.log(arr[i].img);
+        })
+    }
+}
+console.log(pawn_black[0].current);
+console.log(pawn_black[0].move());

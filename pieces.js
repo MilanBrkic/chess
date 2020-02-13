@@ -1,6 +1,7 @@
 class Piece{
     constructor(color){
         this.color = color; //w for white b for black
+        this.img = new Image();
     }
     
 }
@@ -10,11 +11,11 @@ class King extends Piece{
         super(color);
         
         if(this.color=="w"){
-            this.img = imgTagGenerate('king_white.png');
+            this.img.src = imgTagGenerate('king_white.png');
             this.current = {x:3,y:7}
         }
         else{
-            this.img = imgTagGenerate('king_black.png');
+            this.img.src = imgTagGenerate('king_black.png');
             this.current =  {x:3,y:0};
         }
         
@@ -23,6 +24,8 @@ class King extends Piece{
     setCurrent(coor){
         this.current = coor;
     }
+
+    
     
 }
 
@@ -30,11 +33,11 @@ class Queen extends Piece{
     constructor(color){
         super(color);
         if(this.color=="w"){
-            this.img = imgTagGenerate('queen_white.png');
+            this.img.src = imgTagGenerate('queen_white.png');
             this.current = {x:4,y:7}
         }
         else{
-            this.img = imgTagGenerate('queen_black.png');
+            this.img.src = imgTagGenerate('queen_black.png');
             this.current =  {x:4,y:0};
         }
         
@@ -51,10 +54,10 @@ class Bishop extends Piece{
         super(color);
         this.current = current;
         if(this.color=="w"){
-            this.img = imgTagGenerate('bishop_white.png');
+            this.img.src = imgTagGenerate('bishop_white.png');
         }
         else{
-            this.img = imgTagGenerate('bishop_black.png');
+            this.img.src = imgTagGenerate('bishop_black.png');
         }
     }
     setCurrent(coor){
@@ -67,10 +70,10 @@ class Knight extends Piece{
         super(color);
         this.current = current;
         if(this.color=="w"){
-            this.img = imgTagGenerate('knight_white.png');
+            this.img.src = imgTagGenerate('knight_white.png');
         }
         else{
-            this.img = imgTagGenerate('knight_black.png');
+            this.img.src = imgTagGenerate('knight_black.png');
         }
     }
     setCurrent(coor){
@@ -83,10 +86,10 @@ class Rook extends Piece{
         super(color);
         this.current = current;
         if(this.color=="w"){
-            this.img = imgTagGenerate('rook_white.png');
+            this.img.src = imgTagGenerate('rook_white.png');
         }
         else{
-            this.img = imgTagGenerate('rook_black.png');
+            this.img.src = imgTagGenerate('rook_black.png');
         }
     }
     setCurrent(coor){
@@ -99,19 +102,36 @@ class Pawn extends Piece{
         super(color);
         this.current = current;
         if(this.color=="w"){
-            this.img = imgTagGenerate('pawn_white.png');
+            this.img.src = imgTagGenerate('pawn_white.png');
         }
         else{
-            this.img = imgTagGenerate('pawn_black.png');
+            this.img.src = imgTagGenerate('pawn_black.png');
         }
     }
     setCurrent(coor){
         this.current = coor;
     }
+
+    move(){
+        var arr = new Array();
+        if(this.current.y == 1 || this.current == 6){
+            arr.push({
+                x:this.current.x+2,
+                y:this.current.y
+            });
+        }
+        arr.push({
+            x:this.current.x+1,
+            y:this.current.y
+        })
+        return arr;
+    }
 }
 
+
+
 function imgTagGenerate(imgName){
-    return "<img src='chess_pieces/"+imgName+"'>"
+    return "chess_pieces/"+imgName;
 }
 
 
