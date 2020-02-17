@@ -25,7 +25,6 @@ addTable();
 setPieces();    
 
 
-
 function addTable(){
     for(let j = 0;j<8;j++){
         matrix[j] = new Array();
@@ -91,9 +90,27 @@ function pieceListener(arr){
     for(let i = 0;i<arr.length;i++){
         arr[i].img.style.cursor="pointer";
         arr[i].img.addEventListener("click", function(){
-            console.log(arr[i].img);
+            possibleMoves(arr[i].move());
         })
     }
 }
-console.log(pawn_black[0].current);
-console.log(pawn_black[0].move());
+
+function possibleMoves(moves){
+    if(moves==="move"){
+        console.log(moves);
+        return;
+    }
+
+    for(let i=0;i<moves.length;i++){
+        let coord = moves[i];
+        console.log(coord);
+        matrix[coord.y][coord.x].classList.add("green");
+        setTimeout(function(){matrix[coord.y][coord.x].classList.remove("green")}, 1000);
+    }
+}
+
+function delay(str){
+    console.log(str);
+}
+
+

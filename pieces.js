@@ -25,7 +25,9 @@ class King extends Piece{
         this.current = coor;
     }
 
-    
+    move(){
+        return "move";
+    }
     
 }
 
@@ -46,6 +48,10 @@ class Queen extends Piece{
     setCurrent(coor){
         this.current = coor;
     }
+
+    move(){
+        return "move";
+    }
     
 }
 
@@ -63,6 +69,10 @@ class Bishop extends Piece{
     setCurrent(coor){
         this.current = coor;
     }
+
+    move(){
+        return "move";
+    }
 }
 
 class Knight extends Piece{
@@ -79,6 +89,9 @@ class Knight extends Piece{
     setCurrent(coor){
         this.current = coor;
     }
+    move(){
+        return "move";
+    }
 }
 
 class Rook extends Piece{
@@ -94,6 +107,10 @@ class Rook extends Piece{
     }
     setCurrent(coor){
         this.current = coor;
+    }
+
+    move(){
+        return "move";
     }
 }
 
@@ -113,17 +130,22 @@ class Pawn extends Piece{
     }
 
     move(){
+        let korak = -2;;
+        if(this.color==='b'){
+            korak = -korak;
+        }
+        
         var arr = new Array();
-        if(this.current.y == 1 || this.current == 6){
+        if(this.current.y == 1 || this.current.y == 6){
             arr.push({
-                x:this.current.x+2,
-                y:this.current.y
+                x:this.current.x,
+                y:this.current.y+korak
             });
         }
-        arr.push({
-            x:this.current.x+1,
-            y:this.current.y
-        })
+        // arr.push({
+        //     x:this.current.x,
+        //     y:this.current.y
+        // })
         return arr;
     }
 }
