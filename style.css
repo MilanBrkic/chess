@@ -17,8 +17,8 @@ table{
 
 td{
     border: solid 1px black;
-    width: 100px;
-    height: 100px;
+    width: 104px;
+    height: 104px;
     border-spacing: 0px;
     
 }
@@ -37,5 +37,11 @@ img{
 }
 
 .green{
-    background-color: forestgreen !important;
+    transition: background-color 1s;
+    background-color: rgba(144, 238, 144) !important;
+    cursor: pointer;
+}
+
+.clickedOn{
+    transform: scale(1.2)
 }

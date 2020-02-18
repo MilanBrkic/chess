@@ -64,6 +64,7 @@ function initializePieces(){
     }
 
 }
+var arr;
 
 function setPieces(){
     initializePieces();
@@ -90,12 +91,14 @@ function pieceListener(arr){
     for(let i = 0;i<arr.length;i++){
         arr[i].img.style.cursor="pointer";
         arr[i].img.addEventListener("click", function(){
-            possibleMoves(arr[i].move());
+            arr[i].img.classList.add('clickedOn');
+            possibleMoves(arr[i]);
         })
     }
 }
 
-function possibleMoves(moves){
+function possibleMoves(element){
+    let moves = element.move();
     if(moves==="move"){
         console.log(moves);
         return;
@@ -103,14 +106,52 @@ function possibleMoves(moves){
 
     for(let i=0;i<moves.length;i++){
         let coord = moves[i];
-        console.log(coord);
         matrix[coord.y][coord.x].classList.add("green");
-        setTimeout(function(){matrix[coord.y][coord.x].classList.remove("green")}, 1000);
+        matrix[coord.y][coord.x].onclick =function(){
+            clickOnField(coord.y,coord.x,element);
+        }
+        
+        
     }
 }
 
-function delay(str){
-    console.log(str);
+function clickOnField(y,x,element){
+    if(matrix[y][x].hasChildNodes()){
+        if(matrix[y][x].firstChild.alt === element.img.alt){
+            console.log("ne mos jesti svog");
+            matrix[y][x].classList.remove("green");
+            matrix[y][x].onclick=null;
+            element.img.classList.remove('clickedOn');
+            noClickOnField();
+            return;
+
+        }   
+    }
+    matrix[y][x].appendChild(element.img);
+    element.setCurrent({
+        x: x,
+        y, y
+    })
+    matrix[y][x].classList.remove("green");
+    matrix[y][x].onclick=null;
+    element.img.classList.remove('clickedOn');
+
+    noClickOnField();
 }
 
+
+
+function noClickOnField(){
+    for(let i=0;i<matrix.length;i++){
+        for(let j=0;j<matrix[i].length;j++){
+            if(!matrix[i][j].hasChildNodes()){
+                matrix[i][j].classList.remove("green");
+                matrix[i][j].onclick=null;
+            }
+        }
+    }
+}
+
+
+matrix[5][2].appendChild(pawn_white[0].img);
 
