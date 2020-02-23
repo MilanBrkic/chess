@@ -125,6 +125,8 @@ class Rook extends Piece{
     }
 }
 
+
+
 class Pawn extends Piece{
     constructor(color,current){
         super(color);
@@ -149,16 +151,23 @@ class Pawn extends Piece{
         }
         
         var arr = new Array();
-        if(this.current.y == 1 || this.current.y == 6){
+        
+        if(this.current.y+korak>7 || this.current.y+korak<0){
+            return null;
+        }
+
+        arr.push({
+            x:this.current.x,
+            y:this.current.y+korak + (korak<0 ? 1:-1)
+        })
+
+        if( (this.current.y == 1 && this.color=='b')  || (this.current.y == 6 && this.color=='w')){
             arr.push({
                 x:this.current.x,
                 y:this.current.y+korak
             });
         }
-        arr.push({
-            x:this.current.x,
-            y:this.current.y+korak + (korak<0 ? 1:-1)
-        })
+
         return arr;
     }
 }

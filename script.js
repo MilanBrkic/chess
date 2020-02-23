@@ -1,7 +1,7 @@
 const chessboard = document.getElementById('chessboard');
 var matrix = new Array();
 var pieces = new Array();
-
+var arr;
 
 var king_white;
 var king_black;
@@ -64,7 +64,7 @@ function initializePieces(){
     }
 
 }
-var arr;
+
 
 function setPieces(){
     initializePieces();
@@ -100,17 +100,27 @@ function pieceListener(arr){
 function possibleMoves(element){
     let moves = element.move();
     if(moves==="move"){
-        console.log(moves);
+        console.log("move");
         return;
     }
 
+    if(moves==null){
+        return;
+    }
+
+   
+
     for(let i=0;i<moves.length;i++){
         let coord = moves[i];
-        matrix[coord.y][coord.x].classList.add("green");
-        matrix[coord.y][coord.x].onclick =function(){
-            clickOnField(coord.y,coord.x,element);
+        if(matrix[coord.y][coord.x].hasChildNodes()){
+            break;
         }
         
+        matrix[coord.y][coord.x].classList.add("green");
+            
+        matrix[coord.y][coord.x].onclick =function(){
+            clickOnField(coord.y,coord.x,element);
+        }    
         
     }
 }
@@ -119,27 +129,30 @@ function clickOnField(y,x,element){
     if(matrix[y][x].hasChildNodes()){
         if(matrix[y][x].firstChild.alt === element.img.alt){
             console.log("ne mos jesti svog");
-            matrix[y][x].classList.remove("green");
-            matrix[y][x].onclick=null;
-            element.img.classList.remove('clickedOn');
+            removeClasses(y,x,element);
             noClickOnField();
             return;
 
         }   
     }
+    
     matrix[y][x].appendChild(element.img);
     element.setCurrent({
         x: x,
         y, y
     })
-    matrix[y][x].classList.remove("green");
-    matrix[y][x].onclick=null;
-    element.img.classList.remove('clickedOn');
+    
+    removeClasses(y,x,element);
 
     noClickOnField();
 }
 
-
+function removeClasses(y,x, element){
+    matrix[y][x].classList.remove("green");
+    matrix[y][x].onclick=null;
+    element.img.classList.remove('clickedOn');
+    
+}
 
 function noClickOnField(){
     for(let i=0;i<matrix.length;i++){
@@ -153,5 +166,5 @@ function noClickOnField(){
 }
 
 
-matrix[5][2].appendChild(pawn_white[0].img);
+
 
