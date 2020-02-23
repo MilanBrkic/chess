@@ -1,6 +1,8 @@
+import {King, Queen, Pawn, Rook, Bishop, Knight} from './pieces.js';
+
 const chessboard = document.getElementById('chessboard');
 var matrix = new Array();
-var pieces = new Array();
+
 var arr;
 
 var king_white;
@@ -75,13 +77,13 @@ function setPieces(){
         arr.push(bishop_black[i],bishop_white[i], knight_black[i],knight_white[i], rook_black[i], rook_white[i]);
     }
 
-    for(i =0;i<8;i++){
+    for(let i =0;i<8;i++){
         arr.push(pawn_black[i],pawn_white[i]);
     }
     
     pieceListener(arr);
 
-    for(i = 0;i<arr.length;i++){
+    for(let i = 0;i<arr.length;i++){
         let element = arr[i];
         matrix[element.current.y][element.current.x].appendChild(element.img);
     }
@@ -112,16 +114,16 @@ function possibleMoves(element){
 
     for(let i=0;i<moves.length;i++){
         let coord = moves[i];
-        if(matrix[coord.y][coord.x].hasChildNodes()){
-            break;
-        }
+        
         
         matrix[coord.y][coord.x].classList.add("green");
             
         matrix[coord.y][coord.x].onclick =function(){
             clickOnField(coord.y,coord.x,element);
         }    
-        
+        if(matrix[coord.y][coord.x].hasChildNodes()){
+            break;
+        }
     }
 }
 
@@ -168,3 +170,4 @@ function noClickOnField(){
 
 
 
+export{matrix};

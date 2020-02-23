@@ -161,13 +161,29 @@ class Pawn extends Piece{
             y:this.current.y+korak + (korak<0 ? 1:-1)
         })
 
+        let matrix = tableStatus();
+
+        if(matrix[arr[0].y][arr[0].x+1].hasChildNodes()){
+            arr.push({
+                x:arr[0].x+1,
+                y:arr[0].y
+            })
+        }
+
+        if(matrix[arr[0].y][arr[0].x-1].hasChildNodes()){
+            arr.push({
+                x:arr[0].x-1,
+                y:arr[0].y
+            })
+        }
+
         if( (this.current.y == 1 && this.color=='b')  || (this.current.y == 6 && this.color=='w')){
             arr.push({
                 x:this.current.x,
                 y:this.current.y+korak
             });
         }
-
+        
         return arr;
     }
 }
@@ -179,3 +195,19 @@ function imgTagGenerate(imgName){
 }
 
 
+
+function tableStatus(){
+    let matrix = new Array();
+    let board = document.getElementById('chessboard');
+    let table = board.children[0].children
+    for(let i=0;i<table.length;i++){
+        matrix[i] = Array();
+        for(let j = 0;j<table[i].children.length;j++){
+            matrix[i][j] = table[i].children[j];
+        }
+    }   
+    
+    return matrix;
+}
+
+export {Piece, King, Queen, Pawn, Rook, Bishop, Knight};
