@@ -92,14 +92,18 @@ function setPieces(){
 function pieceListener(arr){
     for(let i = 0;i<arr.length;i++){
         arr[i].img.style.cursor="pointer";
-        arr[i].img.addEventListener("click", function(){
+        arr[i].img.onclick =  function(){
+            noClickOnField();//removing green fields from previous clicked on figures
+
             arr[i].img.classList.add('clickedOn');
             possibleMoves(arr[i]);
-        })
+            
+        }
     }
 }
 
 function possibleMoves(element){
+    console.log("posible");
     let moves = element.move();
     if(moves==="move"){
         console.log("move");
@@ -110,20 +114,28 @@ function possibleMoves(element){
         return;
     }
 
-   
-
+     
     for(let i=0;i<moves.length;i++){
         let coord = moves[i];
         
+        if(matrix[coord.y][coord.x].hasChildNodes()){
+            matrix[coord.y][coord.x].children[0].style.pointerEvents="none";
+            if(element instanceof Pawn && ((element.color=='b' && element.current.y+1===coord.y) || (element.color=='w' && element.current.y-1===coord.y)) && element.current.x===coord.x) {
+                //specific eating of pawn
+                continue;
+            }
+        }
         
         matrix[coord.y][coord.x].classList.add("green");
             
         matrix[coord.y][coord.x].onclick =function(){
+            
             clickOnField(coord.y,coord.x,element);
-        }    
-        if(matrix[coord.y][coord.x].hasChildNodes()){
-            break;
         }
+
+        // if(matrix[coord.y-1][coord.x].classList.contains('green')){
+        //     break;
+        // }
     }
 }
 
@@ -134,8 +146,10 @@ function clickOnField(y,x,element){
             removeClasses(y,x,element);
             noClickOnField();
             return;
-
-        }   
+        }
+        else{
+            matrix[y][x].removeChild(matrix[y][x].children[0]);
+        }
     }
     
     matrix[y][x].appendChild(element.img);
@@ -147,6 +161,7 @@ function clickOnField(y,x,element){
     removeClasses(y,x,element);
 
     noClickOnField();
+    enableAllPointerEvents();
 }
 
 function removeClasses(y,x, element){
@@ -159,15 +174,23 @@ function removeClasses(y,x, element){
 function noClickOnField(){
     for(let i=0;i<matrix.length;i++){
         for(let j=0;j<matrix[i].length;j++){
-            if(!matrix[i][j].hasChildNodes()){
+            
                 matrix[i][j].classList.remove("green");
                 matrix[i][j].onclick=null;
-            }
+                if(matrix[i][j].hasChildNodes()){
+                    matrix[i][j].children[0].classList.remove('clickedOn');
+                }
         }
     }
 }
 
 
-
-
-export{matrix};
+function enableAllPointerEvents(){
+    for(let i=0;i<matrix.length;i++){
+        for(let j=0;j<matrix[i].length;j++){
+            if(matrix[i][j].hasChildNodes()){
+                matrix[i][j].children[0].style.pointerEvents="all";
+            }
+        }
+    }
+}

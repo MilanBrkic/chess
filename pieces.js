@@ -145,45 +145,66 @@ class Pawn extends Piece{
     }
 
     move(){
-        let korak = -2;;
+        
+        let korak = -2;
         if(this.color==='b'){
             korak = -korak;
         }
         
+        
         var arr = new Array();
         
-        if(this.current.y+korak>7 || this.current.y+korak<0){
+        if((this.color =='b' &&  this.current.y==7) || (this.color =='w' && this.current.y==0)){
             return null;
         }
+        
+        //basic pawn movement
 
         arr.push({
             x:this.current.x,
             y:this.current.y+korak + (korak<0 ? 1:-1)
         })
-
+        
         let matrix = tableStatus();
+        
+        //diagonal movement for eating
 
-        if(matrix[arr[0].y][arr[0].x+1].hasChildNodes()){
+        if(matrix[arr[0].y][arr[0].x+1]!=undefined && matrix[arr[0].y][arr[0].x+1].hasChildNodes()){
             arr.push({
                 x:arr[0].x+1,
                 y:arr[0].y
             })
         }
 
-        if(matrix[arr[0].y][arr[0].x-1].hasChildNodes()){
+        if(matrix[arr[0].y][arr[0].x-1]!=undefined && matrix[arr[0].y][arr[0].x-1].hasChildNodes()){
             arr.push({
                 x:arr[0].x-1,
                 y:arr[0].y
             })
         }
+        
+        if(arr.length==3){
+            let pom = arr[0];
+            arr[0] = arr[2];
+            arr[2] = pom;
+        }
+        else if(arr.length==2){
+            let pom = arr[0];
+            arr[0] = arr[1];
+            arr[1] = pom;
+        }
+        
+        //pawn movment for starting position
 
         if( (this.current.y == 1 && this.color=='b')  || (this.current.y == 6 && this.color=='w')){
+            
             arr.push({
                 x:this.current.x,
                 y:this.current.y+korak
             });
         }
         
+        console.log(arr);
         return arr;
     }
 }
@@ -206,7 +227,6 @@ function tableStatus(){
             matrix[i][j] = table[i].children[j];
         }
     }   
-    
     return matrix;
 }
 
