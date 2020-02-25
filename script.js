@@ -119,14 +119,19 @@ function possibleMoves(element){
         
         if(matrix[coord.y][coord.x].hasChildNodes()){
             matrix[coord.y][coord.x].children[0].style.pointerEvents="none";
-            if(element instanceof Pawn && ((element.color=='b' && element.current.y+1===coord.y) || (element.color=='w' && element.current.y-1===coord.y)) && element.current.x===coord.x) {
+            if(element instanceof Pawn && ( ((element.color=='b' && element.current.y+2===coord.y) || (element.color=='w' && element.current.y-2===coord.y))  ||  ((element.color=='b' && element.current.y+1===coord.y) || (element.color=='w' && element.current.y-1===coord.y)) ) && element.current.x===coord.x) {
                 //specific eating of pawn
+                
                 continue;
             }
+
+
         }
         
         matrix[coord.y][coord.x].classList.add("green");
-            
+        
+        
+
         matrix[coord.y][coord.x].onclick =function(){
             
             clickOnField(coord.y,coord.x,element);
