@@ -144,7 +144,100 @@ class Rook extends Piece{
     }
 
     move(){
-        return "move";
+        let matrix = tableStatus();
+        let arr = new Array();
+        let stop_y=false;
+        let stop_x=false;
+
+        for(var i=this.current.x+1;i<8;i++){
+            if(matrix[this.current.y][i].hasChildNodes()){
+                if(matrix[this.current.y][i].children[0].alt[0]==this.color){
+                    
+                    break;        
+                }
+                else{
+                    arr.push({
+                        x:i,
+                        y:this.current.y
+                    });
+                    break;
+                }
+            
+            }
+
+            arr.push({
+                x:i,
+                y:this.current.y
+            });
+        }
+
+        for(i=this.current.x-1;i>-1;i--){
+            if(matrix[this.current.y][i].hasChildNodes()){
+                if(matrix[this.current.y][i].children[0].alt[0]==this.color){
+                   
+                    break;        
+                }
+                else{
+                    arr.push({
+                        x:i,
+                        y:this.current.y
+                    });
+                    break;
+                }
+            
+            }
+            arr.push({
+                x:i,
+                y:this.current.y
+            });
+        }
+        
+        for(var i=this.current.y+1;i<8;i++){
+            if(matrix[i][this.current.x].hasChildNodes()){
+                if(matrix[i][this.current.x].children[0].alt[0]==this.color){
+                    break;        
+                }
+                else{
+                    arr.push({
+                        x:this.current.x,
+                        y:i
+                    });
+                    break;
+                }
+            
+            }
+            
+            
+            arr.push({
+                x:this.current.x,
+                y:i
+            });
+        }
+
+        for(i=this.current.y-1;i>-1;i--){
+            if(matrix[i][this.current.x].hasChildNodes()){
+                if(matrix[i][this.current.x].children[0].alt[0]==this.color){
+                    break;        
+                }
+                else{
+                    arr.push({
+                        x:this.current.x,
+                        y:i
+                    });
+                    break;
+                }
+            
+            }
+
+            arr.push({
+                x:this.current.x,
+                y:i
+            });
+        } 
+
+        
+
+        return arr;
     }
 }
 
@@ -180,15 +273,15 @@ class Pawn extends Piece{
         if((this.color =='b' &&  this.current.y==7) || (this.color =='w' && this.current.y==0)){
             return null;
         }
-        
+        let matrix = tableStatus();
         //basic pawn movement
-
+        
         arr.push({
             x:this.current.x,
             y:this.current.y+korak + (korak<0 ? 1:-1)
         })
         
-        let matrix = tableStatus();
+        
         
         //diagonal movement for eating
 

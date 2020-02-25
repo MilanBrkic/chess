@@ -93,6 +93,7 @@ function pieceListener(arr){
     for(let i = 0;i<arr.length;i++){
         arr[i].img.style.cursor="pointer";
         arr[i].img.onclick =  function(){
+            enableAllPointerEvents();
             noClickOnField();//removing green fields from previous clicked on figures
 
             arr[i].img.classList.add('clickedOn');
@@ -135,6 +136,7 @@ function possibleMoves(element){
         matrix[coord.y][coord.x].onclick =function(){
             
             clickOnField(coord.y,coord.x,element);
+            
         }
 
         // if(matrix[coord.y-1][coord.x].classList.contains('green')){
