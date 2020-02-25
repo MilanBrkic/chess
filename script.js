@@ -103,7 +103,6 @@ function pieceListener(arr){
 }
 
 function possibleMoves(element){
-    console.log("posible");
     let moves = element.move();
     if(moves==="move"){
         console.log("move");
@@ -144,6 +143,7 @@ function clickOnField(y,x,element){
         if(matrix[y][x].firstChild.alt === element.img.alt){
             console.log("ne mos jesti svog");
             removeClasses(y,x,element);
+            enableAllPointerEvents();
             noClickOnField();
             return;
         }

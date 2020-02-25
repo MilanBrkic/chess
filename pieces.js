@@ -28,7 +28,30 @@ class King extends Piece{
     }
 
     move(){
-        return "move";
+        let arr = new Array();
+
+        let offsets = new Array(-1,0,1);
+
+        for(let i of offsets){
+            for(let j of offsets){
+                if(i==0 && j==0){
+                    continue;
+                }
+                if(this.current.y+j<0 || this.current.y+j>7 || this.current.x+i<0 || this.current.x+i>7){
+                    continue;
+                }
+
+                arr.push({
+                    x:this.current.x+i,
+                    y:this.current.y+j
+                });
+
+            }
+                
+        }
+
+        return arr;
+
     }
     
 }
