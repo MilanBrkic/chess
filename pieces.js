@@ -101,7 +101,12 @@ class Bishop extends Piece{
     }
 
     move(){
-        let matrix = tableStatus();
+        return moveBishop(this.current, this.color);
+    }
+}
+
+function moveBishop(current, color){
+    let matrix = tableStatus();
         let arr1 = new Array();
         let arr2 = new Array();
         let arr3 = new Array();
@@ -117,108 +122,188 @@ class Bishop extends Piece{
 
 
         for(let i = 1;i<8;i++){
-            
-            
-            if(this.current.x-i>=0 && this.current.y+i<=7){
-                if(matrix[this.current.y+i][this.current.x-i].hasChildNodes()){
-                    if(matrix[this.current.y+i][this.current.x-i].children[0].alt[0]==this.color){
+
+            if(current.x-i>=0 && current.y+i<=7){
+                if(!firstStop){
+                    let something = moveBishopHelp(current.y+i,current.x-i,color, matrix);
+                    
+                    if(something!=null){
+                        if(something[1]==undefined){
+                            arr1.push(something[0]);
+                        }
+                        else{
+                            arr1.push(something[0]);
+                            firstStop=true;
+                        }
+                    }
+                    else{
                         firstStop = true;
                     }
-                    else{
-                        if(!firstStop){
-                            arr1.push({
-                                x:this.current.x-i,
-                                y:this.current.y+i
-                            });
-                            firstStop = true;
+                }
+            }
+
+            if(current.y-i>=0 && current.x+i<=7){
+                if(!secondStop){
+                    let something = moveBishopHelp(current.y-i,current.x+i,color, matrix);
+                    
+                    if(something!=null){
+                        if(something[1]==undefined){
+                            arr1.push(something[0]);
+                        }
+                        else{
+                            arr1.push(something[0]);
+                            secondStop=true;
                         }
                     }
-                }
-
-                if(!firstStop){
-                    arr1.push({
-                        x:this.current.x-i,
-                        y:this.current.y+i
-                    });
-                }
-                
-            }
-            
-
-            if(this.current.y-i>=0 && this.current.x+i<=7){
-                if(matrix[this.current.y-i][this.current.x+i].hasChildNodes()){
-                    if(matrix[this.current.y-i][this.current.x+i].children[0].alt[0]==this.color){
+                    else{
                         secondStop = true;
                     }
-                    else{
-                        if(!secondStop){
-                            arr2.push({
-                                x:this.current.x+i,
-                                y:this.current.y-i
-                            });
-                            secondStop = true;
-                        }
-                    }
-                }
-
-                if(!secondStop){
-                    arr2.push({
-                        x:this.current.x+i,
-                        y:this.current.y-i
-                    });
                 }
             }
 
-            if(this.current.x+i<=7 && this.current.y+i<=7){
-                if(matrix[this.current.y+i][this.current.x+i].hasChildNodes()){
-                    if(matrix[this.current.y+i][this.current.x+i].children[0].alt[0]==this.color){
+            if(current.x+i<=7 && current.y+i<=7){
+                if(!thirdStop){
+                    let something = moveBishopHelp(current.y+i,current.x+i,color, matrix);
+                    
+                    if(something!=null){
+                        if(something[1]==undefined){
+                            arr1.push(something[0]);
+                        }
+                        else{
+                            arr1.push(something[0]);
+                            thirdStop=true;
+                        }
+                    }
+                    else{
                         thirdStop = true;
                     }
-                    else{
-                        if(!thirdStop){
-                            arr3.push({
-                                x:this.current.x+i,
-                                y:this.current.y+i
-                            });
-                            
-                            thirdStop = true;
-                        }
-                    }
-                }
-    
-                if(!thirdStop){
-                    arr3.push({
-                        x:this.current.x+i,
-                        y:this.current.y+i
-                    });
                 }
             }
 
-            if(this.current.x-i>=0 && this.current.y-i>=0){
-                if(matrix[this.current.y-i][this.current.x-i].hasChildNodes()){
-                    if(matrix[this.current.y-i][this.current.x-i].children[0].alt[0]==this.color){
+            if(current.x-i>=0 && current.y-i>=0){
+                if(!fourthStop){
+                    let something = moveBishopHelp(current.y-i,current.x-i,color, matrix);
+                    
+                    if(something!=null){
+                        if(something[1]==undefined){
+                            arr1.push(something[0]);
+                        }
+                        else{
+                            arr1.push(something[0]);
+                            fourthStop=true;
+                        }
+                    }
+                    else{
                         fourthStop = true;
                     }
-                    else{
-                        if(!fourthStop){        
-                            arr3.push({
-                                x:this.current.x-i,
-                                y:this.current.y-i
-                            });
-                            
-                            fourthStop = true;
-                        }
-                    }
                 }
-
-                if(!fourthStop){
-                    arr4.push({
-                        x:this.current.x-i,
-                        y:this.current.y-i
-                    });
-                }
-                
             }
+
+
+            // if(current.x-i>=0 && current.y+i<=7){
+            //     if(matrix[current.y+i][current.x-i].hasChildNodes()){
+            //         if(matrix[current.y+i][current.x-i].children[0].alt[0]==color){
+            //             firstStop = true;
+            //         }
+            //         else{
+            //             if(!firstStop){
+            //                 arr1.push({
+            //                     x:current.x-i,
+            //                     y:current.y+i
+            //                 });
+            //                 firstStop = true;
+            //             }
+            //         }
+            //     }
+        
+            //     if(!firstStop){
+            //         arr1.push({
+            //             x:current.x-i,
+            //             y:current.y+i
+            //         });
+            //     }
+                
+            // }
+
+            // if(current.y-i>=0 && current.x+i<=7){
+            //     if(matrix[current.y-i][current.x+i].hasChildNodes()){
+            //         if(matrix[current.y-i][current.x+i].children[0].alt[0]==color){
+            //             secondStop = true;
+            //         }
+            //         else{
+            //             if(!secondStop){
+            //                 arr2.push({
+            //                     x:current.x+i,
+            //                     y:current.y-i
+            //                 });
+            //                 secondStop = true;
+            //             }
+            //         }
+            //     }
+
+            //     if(!secondStop){
+            //         arr2.push({
+            //             x:current.x+i,
+            //             y:current.y-i
+            //         });
+            //     }
+            // }
+            
+            
+
+
+            // if(current.x+i<=7 && current.y+i<=7){
+            //     if(matrix[current.y+i][current.x+i].hasChildNodes()){
+            //         if(matrix[current.y+i][current.x+i].children[0].alt[0]==color){
+            //             thirdStop = true;
+            //         }
+            //         else{
+            //             if(!thirdStop){
+            //                 arr3.push({
+            //                     x:current.x+i,
+            //                     y:current.y+i
+            //                 });
+                            
+            //                 thirdStop = true;
+            //             }
+            //         }
+            //     }
+    
+            //     if(!thirdStop){
+            //         arr3.push({
+            //             x:current.x+i,
+            //             y:current.y+i
+            //         });
+            //     }
+            // }
+            
+            
+
+            // if(current.x-i>=0 && current.y-i>=0){
+            //     if(matrix[current.y-i][current.x-i].hasChildNodes()){
+            //         if(matrix[current.y-i][current.x-i].children[0].alt[0]==color){
+            //             fourthStop = true;
+            //         }
+            //         else{
+            //             if(!fourthStop){        
+            //                 arr3.push({
+            //                     x:current.x-i,
+            //                     y:current.y-i
+            //                 });
+                            
+            //                 fourthStop = true;
+            //             }
+            //         }
+            //     }
+
+            //     if(!fourthStop){
+            //         arr4.push({
+            //             x:current.x-i,
+            //             y:current.y-i
+            //         });
+            //     }
+                
+            // }
 
             
         
@@ -228,7 +313,29 @@ class Bishop extends Piece{
 
         arr = arr.concat(arr1,arr2,arr3,arr4);
         return arr;
+}   
+
+function moveBishopHelp(y,x,color,matrix){
+    if(matrix[y][x].hasChildNodes()){
+        if(matrix[y][x].children[0].alt[0]==color){
+            return null;
+        }
+        else{
+            return [{
+                x:x,
+                y:y
+            },
+            {
+                isnull: null
+            }];
+            }
     }
+
+    return [{
+        x:x,
+        y:y
+    }];
+    
 }
 
 class Knight extends Piece{
