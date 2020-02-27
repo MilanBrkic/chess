@@ -250,9 +250,43 @@ class Knight extends Piece{
         this.current = coor;
     }
     move(){
-        return "move";
+        return moveKnight(this.current,this.color);
     }
 }
+
+
+function moveKnight(current,color){
+    let matrix = tableStatus();
+    let arr = new Array();
+    
+    
+    let x = -2;
+    let y = -1;
+    for(let k = 0;k<2;k++){
+        for(let i =0;i<2;i++){
+            x = -x;
+            if(current.x+x>=0 && current.x+x<=7){
+                for(let j=0;j<2;j++){
+                    y = -y;
+                    if(current.y+y>=0 && current.y+y<=7){
+                        if(matrix[current.y+y][current.x+x].hasChildNodes() && matrix[current.y+y][current.x+x].children[0].alt[0]==color){
+                            continue;
+                        }
+                        arr.push({
+                            x:current.x+x,
+                            y:current.y+y
+                        });            
+                    }
+                }
+            }
+        }
+        let pom = x;
+        x = y;
+        y = pom;
+    }
+    return arr;
+}
+
 
 class Rook extends Piece{
     constructor(color,current){
