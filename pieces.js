@@ -77,7 +77,9 @@ class Queen extends Piece{
     }
 
     move(){
-        return "move";
+        let arr = new Array();
+        arr = arr.concat(moveBishop(this.current,this.color), moveRook(this.current,this.color));
+        return arr;
     }
     
 }
@@ -199,113 +201,6 @@ function moveBishop(current, color){
                 }
             }
 
-
-            // if(current.x-i>=0 && current.y+i<=7){
-            //     if(matrix[current.y+i][current.x-i].hasChildNodes()){
-            //         if(matrix[current.y+i][current.x-i].children[0].alt[0]==color){
-            //             firstStop = true;
-            //         }
-            //         else{
-            //             if(!firstStop){
-            //                 arr1.push({
-            //                     x:current.x-i,
-            //                     y:current.y+i
-            //                 });
-            //                 firstStop = true;
-            //             }
-            //         }
-            //     }
-        
-            //     if(!firstStop){
-            //         arr1.push({
-            //             x:current.x-i,
-            //             y:current.y+i
-            //         });
-            //     }
-                
-            // }
-
-            // if(current.y-i>=0 && current.x+i<=7){
-            //     if(matrix[current.y-i][current.x+i].hasChildNodes()){
-            //         if(matrix[current.y-i][current.x+i].children[0].alt[0]==color){
-            //             secondStop = true;
-            //         }
-            //         else{
-            //             if(!secondStop){
-            //                 arr2.push({
-            //                     x:current.x+i,
-            //                     y:current.y-i
-            //                 });
-            //                 secondStop = true;
-            //             }
-            //         }
-            //     }
-
-            //     if(!secondStop){
-            //         arr2.push({
-            //             x:current.x+i,
-            //             y:current.y-i
-            //         });
-            //     }
-            // }
-            
-            
-
-
-            // if(current.x+i<=7 && current.y+i<=7){
-            //     if(matrix[current.y+i][current.x+i].hasChildNodes()){
-            //         if(matrix[current.y+i][current.x+i].children[0].alt[0]==color){
-            //             thirdStop = true;
-            //         }
-            //         else{
-            //             if(!thirdStop){
-            //                 arr3.push({
-            //                     x:current.x+i,
-            //                     y:current.y+i
-            //                 });
-                            
-            //                 thirdStop = true;
-            //             }
-            //         }
-            //     }
-    
-            //     if(!thirdStop){
-            //         arr3.push({
-            //             x:current.x+i,
-            //             y:current.y+i
-            //         });
-            //     }
-            // }
-            
-            
-
-            // if(current.x-i>=0 && current.y-i>=0){
-            //     if(matrix[current.y-i][current.x-i].hasChildNodes()){
-            //         if(matrix[current.y-i][current.x-i].children[0].alt[0]==color){
-            //             fourthStop = true;
-            //         }
-            //         else{
-            //             if(!fourthStop){        
-            //                 arr3.push({
-            //                     x:current.x-i,
-            //                     y:current.y-i
-            //                 });
-                            
-            //                 fourthStop = true;
-            //             }
-            //         }
-            //     }
-
-            //     if(!fourthStop){
-            //         arr4.push({
-            //             x:current.x-i,
-            //             y:current.y-i
-            //         });
-            //     }
-                
-            // }
-
-            
         
         }
 
@@ -377,20 +272,25 @@ class Rook extends Piece{
     }
 
     move(){
+        return moveRook(this.current,this.color);
+    }
+}
+
+function moveRook(current,color){
         let matrix = tableStatus();
         let arr = new Array();
 
 
-        for(var i=this.current.x+1;i<8;i++){
-            if(matrix[this.current.y][i].hasChildNodes()){
-                if(matrix[this.current.y][i].children[0].alt[0]==this.color){
+        for(var i=current.x+1;i<8;i++){
+            if(matrix[current.y][i].hasChildNodes()){
+                if(matrix[current.y][i].children[0].alt[0]==color){
                     
                     break;        
                 }
                 else{
                     arr.push({
                         x:i,
-                        y:this.current.y
+                        y:current.y
                     });
                     break;
                 }
@@ -399,20 +299,20 @@ class Rook extends Piece{
 
             arr.push({
                 x:i,
-                y:this.current.y
+                y:current.y
             });
         }
 
-        for(i=this.current.x-1;i>-1;i--){
-            if(matrix[this.current.y][i].hasChildNodes()){
-                if(matrix[this.current.y][i].children[0].alt[0]==this.color){
+        for(i=current.x-1;i>-1;i--){
+            if(matrix[current.y][i].hasChildNodes()){
+                if(matrix[current.y][i].children[0].alt[0]==color){
                    
                     break;        
                 }
                 else{
                     arr.push({
                         x:i,
-                        y:this.current.y
+                        y:current.y
                     });
                     break;
                 }
@@ -420,18 +320,18 @@ class Rook extends Piece{
             }
             arr.push({
                 x:i,
-                y:this.current.y
+                y:current.y
             });
         }
         
-        for(var i=this.current.y+1;i<8;i++){
-            if(matrix[i][this.current.x].hasChildNodes()){
-                if(matrix[i][this.current.x].children[0].alt[0]==this.color){
+        for(var i=current.y+1;i<8;i++){
+            if(matrix[i][current.x].hasChildNodes()){
+                if(matrix[i][current.x].children[0].alt[0]==color){
                     break;        
                 }
                 else{
                     arr.push({
-                        x:this.current.x,
+                        x:current.x,
                         y:i
                     });
                     break;
@@ -441,19 +341,19 @@ class Rook extends Piece{
             
             
             arr.push({
-                x:this.current.x,
+                x:current.x,
                 y:i
             });
         }
 
-        for(i=this.current.y-1;i>-1;i--){
-            if(matrix[i][this.current.x].hasChildNodes()){
-                if(matrix[i][this.current.x].children[0].alt[0]==this.color){
+        for(i=current.y-1;i>-1;i--){
+            if(matrix[i][current.x].hasChildNodes()){
+                if(matrix[i][current.x].children[0].alt[0]==color){
                     break;        
                 }
                 else{
                     arr.push({
-                        x:this.current.x,
+                        x:current.x,
                         y:i
                     });
                     break;
@@ -462,7 +362,7 @@ class Rook extends Piece{
             }
 
             arr.push({
-                x:this.current.x,
+                x:current.x,
                 y:i
             });
         } 
@@ -470,9 +370,7 @@ class Rook extends Piece{
         
 
         return arr;
-    }
 }
-
 
 
 class Pawn extends Piece{
