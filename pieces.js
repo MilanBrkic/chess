@@ -101,7 +101,133 @@ class Bishop extends Piece{
     }
 
     move(){
-        return "move";
+        let matrix = tableStatus();
+        let arr1 = new Array();
+        let arr2 = new Array();
+        let arr3 = new Array();
+        let arr4 = new Array();
+        
+        
+        let firstStop = false;
+        let secondStop = false;
+        let thirdStop = false;
+        let fourthStop = false;
+        
+
+
+
+        for(let i = 1;i<8;i++){
+            
+            
+            if(this.current.x-i>=0 && this.current.y+i<=7){
+                if(matrix[this.current.y+i][this.current.x-i].hasChildNodes()){
+                    if(matrix[this.current.y+i][this.current.x-i].children[0].alt[0]==this.color){
+                        firstStop = true;
+                    }
+                    else{
+                        if(!firstStop){
+                            arr1.push({
+                                x:this.current.x-i,
+                                y:this.current.y+i
+                            });
+                            firstStop = true;
+                        }
+                    }
+                }
+
+                if(!firstStop){
+                    arr1.push({
+                        x:this.current.x-i,
+                        y:this.current.y+i
+                    });
+                }
+                
+            }
+            
+
+            if(this.current.y-i>=0 && this.current.x+i<=7){
+                if(matrix[this.current.y-i][this.current.x+i].hasChildNodes()){
+                    if(matrix[this.current.y-i][this.current.x+i].children[0].alt[0]==this.color){
+                        secondStop = true;
+                    }
+                    else{
+                        if(!secondStop){
+                            arr2.push({
+                                x:this.current.x+i,
+                                y:this.current.y-i
+                            });
+                            secondStop = true;
+                        }
+                    }
+                }
+
+                if(!secondStop){
+                    arr2.push({
+                        x:this.current.x+i,
+                        y:this.current.y-i
+                    });
+                }
+            }
+
+            if(this.current.x+i<=7 && this.current.y+i<=7){
+                if(matrix[this.current.y+i][this.current.x+i].hasChildNodes()){
+                    if(matrix[this.current.y+i][this.current.x+i].children[0].alt[0]==this.color){
+                        thirdStop = true;
+                    }
+                    else{
+                        if(!thirdStop){
+                            arr3.push({
+                                x:this.current.x+i,
+                                y:this.current.y+i
+                            });
+                            
+                            thirdStop = true;
+                        }
+                    }
+                }
+    
+                if(!thirdStop){
+                    arr3.push({
+                        x:this.current.x+i,
+                        y:this.current.y+i
+                    });
+                }
+            }
+
+            if(this.current.x-i>=0 && this.current.y-i>=0){
+                if(matrix[this.current.y-i][this.current.x-i].hasChildNodes()){
+                    if(matrix[this.current.y-i][this.current.x-i].children[0].alt[0]==this.color){
+                        fourthStop = true;
+                    }
+                    else{
+                        if(!fourthStop){        
+                            arr3.push({
+                                x:this.current.x-i,
+                                y:this.current.y-i
+                            });
+                            
+                            fourthStop = true;
+                        }
+                    }
+                }
+
+                if(!fourthStop){
+                    arr4.push({
+                        x:this.current.x-i,
+                        y:this.current.y-i
+                    });
+                }
+                
+            }
+
+            
+        
+        }
+
+        let arr = new Array();
+
+        arr = arr.concat(arr1,arr2,arr3,arr4);
+        return arr;
     }
 }
 
@@ -146,8 +272,7 @@ class Rook extends Piece{
     move(){
         let matrix = tableStatus();
         let arr = new Array();
-        let stop_y=false;
-        let stop_x=false;
+
 
         for(var i=this.current.x+1;i<8;i++){
             if(matrix[this.current.y][i].hasChildNodes()){
@@ -320,7 +445,7 @@ class Pawn extends Piece{
             });
         }
         
-        console.log(arr);
+        
         return arr;
     }
 }
