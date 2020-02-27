@@ -1,6 +1,17 @@
 import {King, Queen, Pawn, Rook, Bishop, Knight} from './pieces.js';
 
+var white = true;
+const start = document.getElementById('start');
+start.addEventListener('click', Start);
+
+const restart = document.getElementById('restart');
+restart.addEventListener('click', Restart);
+restart.style.visibility="hidden";
+
+const paragraf = document.getElementById('paragraf-tekst');
 const chessboard = document.getElementById('chessboard');
+const white_sentence = "White on the move";
+const black_sentence = "Black on the move";
 var matrix = new Array();
 
 var arr;
@@ -23,10 +34,26 @@ var rook_black;
 var pawn_black;
 var pawn_white;
 
+
 addTable();
-setPieces();    
+setPieces();  
+disableBlack();
+disableWhite();
 
+function Start(){
+    
+    enableWhite();
+    
+    paragraf.innerHTML = white_sentence; 
+    start.style.visibility="hidden";
+    
+    restart.style.visibility="visible";
 
+}
+
+function Restart(){
+    location.reload();
+}
 function addTable(){
     for(let j = 0;j<8;j++){
         matrix[j] = new Array();
@@ -169,6 +196,23 @@ function clickOnField(y,x,element){
 
     noClickOnField();
     enableAllPointerEvents();
+    nextMove();
+}
+
+function nextMove(){
+    
+    
+    white = !white;
+    if(white){
+        enableWhite();
+        disableBlack();
+        paragraf.innerHTML= white_sentence;
+    }
+    else{
+        disableWhite();
+        enableBlack();
+        paragraf.innerHTML= black_sentence;
+    }
 }
 
 function removeClasses(y,x, element){
@@ -201,3 +245,48 @@ function enableAllPointerEvents(){
         }
     }
 }
+
+function disableBlack(){
+    for(let i=0;i<matrix.length;i++){
+        for(let j=0;j<matrix[i].length;j++){
+            if(matrix[i][j].hasChildNodes() && matrix[i][j].children[0].alt=='black'){
+                matrix[i][j].children[0].style.pointerEvents="none";
+            }
+        }
+    }
+}
+
+function disableWhite(){
+    for(let i=0;i<matrix.length;i++){
+        for(let j=0;j<matrix[i].length;j++){
+            if(matrix[i][j].hasChildNodes() && matrix[i][j].children[0].alt=='white'){
+                matrix[i][j].children[0].style.pointerEvents="none";
+            }
+        }
+    }
+}
+
+function enableBlack(){
+    if(matrix!=undefined){
+    for(let i=0;i<matrix.length;i++){
+        for(let j=0;j<matrix[i].length;j++){
+            if(matrix[i][j].hasChildNodes() && matrix[i][j].children[0].alt=='black'){
+                matrix[i][j].children[0].style.pointerEvents="all";
+            }
+        }
+    }
+}
+}
+
+function enableWhite(){
+    if(matrix!=undefined){
+    for(let i=0;i<matrix.length;i++){
+        for(let j=0;j<matrix[i].length;j++){
+            if(matrix[i][j].hasChildNodes() && matrix[i][j].children[0].alt=='white'){
+                matrix[i][j].children[0].style.pointerEvents="all";
+            }
+        }
+    }
+}
+}
+

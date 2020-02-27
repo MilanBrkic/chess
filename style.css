@@ -1,26 +1,18 @@
 #tabela{
-    display: flex;
-    
-    
+    display: flex;    
     justify-content: center;
 }
 
 table{
     border: 15px solid black;
-    
     border-spacing: 0;
-    
-    
 }
-
-
 
 td{
     border: solid 1px black;
-    width: 104px;
-    height: 104px;
+    width: 94px;
+    height: 94px;
     border-spacing: 0px;
-    
 }
 
 tr:nth-child(odd) td:nth-child(even){
@@ -32,8 +24,8 @@ tr:nth-child(even) td:nth-child(odd){
 }
 
 img{
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
 }
 
 .green{
@@ -44,4 +36,29 @@ img{
 
 .clickedOn{
     transform: scale(1.2)
+}
+
+.tekst{
+    display: flex;    
+    justify-content: center;
+}
+
+.tekst p{
+    font-size: 25px;
+}
+
+.buton{
+    display: flex;    
+    justify-content: center;
+}
+
+.buton button{
+    width: 60px;
+    height: 40px;
+    font-size: 20px;
+}
+
+#restart{
+    width: 80px;
+    height: 40px;
 }
